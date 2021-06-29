@@ -1,0 +1,7 @@
+/dist
+build
+*.log
+.eggs
+*.pyc
+*.so
+*.dSYM

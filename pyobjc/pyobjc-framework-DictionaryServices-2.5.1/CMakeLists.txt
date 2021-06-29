@@ -1,0 +1,3 @@
+project(pyobjc-DictionaryServices)
+
+install_pyobjc_wrapper(DictionaryServices)

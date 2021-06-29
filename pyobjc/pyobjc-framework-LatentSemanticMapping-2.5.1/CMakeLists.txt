@@ -1,0 +1,3 @@
+project(pyobjc-LatentSemanticMapping)
+
+install_pyobjc_wrapper(LatentSemanticMapping)
