@@ -77,7 +77,7 @@ build_pybundle(pyobjc_foundation_inlines
 )
 
 build_pybundle(pyobjc_foundation
-	OUTPUT_NAME "_CoreFoundation"
+	OUTPUT_NAME "_Foundation"
 	PYTHON_VERSION "2.7"
 	FAT
 	DESTINATION "libexec/darling/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/PyObjC/Foundation"
@@ -114,7 +114,7 @@ build_pybundle(pyobjc_appkit_inlines
 )
 
 build_pybundle(pyobjc_appkit
-	OUTPUT_NAME "_CoreFoundation"
+	OUTPUT_NAME "_AppKit"
 	PYTHON_VERSION "2.7"
 	FAT
 	DESTINATION "libexec/darling/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python/PyObjC/AppKit"
