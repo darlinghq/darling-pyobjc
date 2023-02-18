@@ -5,7 +5,6 @@ MANIFEST.in
 NEWS.txt
 README.txt
 build.txt
-setup.cfg
 setup.py
 Doc/Makefile
 Doc/blocks.rst
@@ -294,6 +293,7 @@ Lib/objc/_objc.so.dSYM/Contents/Info.plist
 Lib/pyobjc_core.egg-info/PKG-INFO
 Lib/pyobjc_core.egg-info/SOURCES.txt
 Lib/pyobjc_core.egg-info/dependency_links.txt
+Lib/pyobjc_core.egg-info/namespace_packages.txt
 Lib/pyobjc_core.egg-info/not-zip-safe
 Lib/pyobjc_core.egg-info/top_level.txt
 Lib/pyobjc_core.egg-info/include/pyobjc-api.h

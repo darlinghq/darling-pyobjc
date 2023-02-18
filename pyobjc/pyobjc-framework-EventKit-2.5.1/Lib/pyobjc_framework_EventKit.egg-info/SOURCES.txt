@@ -2,7 +2,6 @@ LICENSE.txt
 MANIFEST.in
 README.txt
 pyobjc_setup.py
-setup.cfg
 setup.py
 Doc/api-notes-EventKit.txt
 Lib/EventKit/__init__.py
