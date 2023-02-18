@@ -1,11 +1,12 @@
 EXTRAS="$(python -c "import sys, os;print(os.path.join(sys.prefix, 'Extras'))")"
 EXTRASLIBPYTHON=${EXTRAS}/lib/python
 EXTRASPYOBJC=${EXTRASLIBPYTHON}/PyObjC
-DSTROOT="$(pwd)/dist"
-SRCROOT="$(pwd)"
+DSTROOT="$(cd ../..; pwd)/dist"
+SRCROOT="$(cd ../..; pwd)"
+GENROOT="$SRCROOT/gen"
 RC_CFLAGS=
 
-pushd 'pyobjc'
+pushd '../../pyobjc'
 for pkg in pyobjc-core* pyobjc-framework-Cocoa* `ls -d pyobjc-framework-* | grep -v pyobjc-framework-Cocoa`; do \
 	pushd "$pkg"
 	ARCHFLAGS="${RC_CFLAGS} -DOBJC_OLD_DISPATCH_PROTOTYPES=0 -D_FORTIFY_SOURCE=0" PYTHONPATH="${EXTRASPYOBJC}:${DSTROOT}${EXTRASPYOBJC}" \
@@ -33,4 +34,10 @@ for i in AVFoundation; do
 	sed "s/@XXX@/$i/g" "${SRCROOT}/patches/newmoduletemplate.py" > "${DSTROOT}${EXTRASPYOBJC}/$i/__init__.py"
 	python -c "import py_compile;py_compile.compile('${DSTROOT}${EXTRASPYOBJC}/$i/__init__.py')"
 	chmod 0644 "${DSTROOT}${EXTRASPYOBJC}/$i/__init__.py"*
+done
+
+mkdir $GENROOT
+echo "PyObjC" > $GENROOT/PyObjC.pth
+for pth in $(find $DSTROOT -name "*.pth"); do
+	cp $pth $GENROOT
 done
