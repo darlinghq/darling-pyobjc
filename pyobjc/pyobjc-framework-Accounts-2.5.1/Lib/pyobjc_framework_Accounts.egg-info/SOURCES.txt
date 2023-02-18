@@ -1,8 +1,10 @@
+CMakeLists.txt
 LICENSE.txt
 MANIFEST.in
 README.txt
 distribute_setup.py
 pyobjc_setup.py
+setup.cfg
 setup.py
 Doc/api-notes-Accounts.txt
 Lib/Accounts/__init__.py

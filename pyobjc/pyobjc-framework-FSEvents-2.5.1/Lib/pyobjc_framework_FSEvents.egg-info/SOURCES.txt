@@ -1,7 +1,9 @@
+CMakeLists.txt
 LICENSE.txt
 MANIFEST.in
 distribute_setup.py
 pyobjc_setup.py
+setup.cfg
 setup.py
 Doc/api-notes-FSEvents.txt
 Examples/watcher.py
