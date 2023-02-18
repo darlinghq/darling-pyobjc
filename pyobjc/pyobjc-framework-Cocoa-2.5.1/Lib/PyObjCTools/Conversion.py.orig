@@ -21,8 +21,13 @@ except ImportError:
     decimal = None
 
 PYTHON_TYPES = (
+#ifdef PY3K
+    str, bytes, bool, int, float, list, tuple, dict,
+    datetime.date, datetime.datetime, bool, memoryview, type(None),
+#else
     basestring, bool, int, float, long, list, tuple, dict,
     datetime.date, datetime.datetime, bool, buffer, type(None),
+#endif
 )
 
 DECIMAL_LOCALE = NSDictionary.dictionaryWithObject_forKey_(
@@ -76,7 +81,11 @@ def serializePropertyList(aPropertyList, format='xml'):
     data, err = NSPropertyListSerialization.dataFromPropertyList_format_errorDescription_(aPropertyList, formatOption, None)
     if err is not None:
         # braindead API!
+#ifdef PY3K
+        errStr = str(errStr)
+#else
         errStr = err.encode('utf-8')
+#endif
         err.release()
         raise TypeError(errStr)
     return data
@@ -88,13 +97,21 @@ def deserializePropertyList(propertyListData):
     Returns an Objective-C property list.
     """
     if isinstance(propertyListData, str):
+#ifdef PY3K
+        propertyListData = propertyListData.encode('utf-8')
+#else
         propertyListData = buffer(propertyListData)
     elif isinstance(propertyListData, unicode):
         propertyListData = buffer(propertyListData.encode('utf-8'))
+#endif
     plist, fmt, err = NSPropertyListSerialization.propertyListFromData_mutabilityOption_format_errorDescription_(propertyListData, NSPropertyListMutableContainers, None, None)
     if err is not None:
         # braindead API!
+#ifdef PY3K
+        errStr = str(errStr)
+#else
         errStr = err.encode('utf-8')
+#endif
         err.release()
         raise TypeError(errStr)
     return plist
@@ -114,7 +131,11 @@ def propertyListFromPythonCollection(aPyCollection, conversionHelper=None):
     if isinstance(aPyCollection, dict):
         collection = NSMutableDictionary.dictionary()
         for aKey in aPyCollection:
+#ifdef PY3K
+            if not isinstance(aKey, str):
+#else
             if not isinstance(aKey, basestring):
+#endif
                 raise TypeError("Property list keys must be strings")
             convertedValue = propertyListFromPythonCollection(
                 aPyCollection[aKey], conversionHelper=conversionHelper)
@@ -153,7 +174,11 @@ def pythonCollectionFromPropertyList(aCollection, conversionHelper=None):
     if isinstance(aCollection, NSDictionary):
         pyCollection = {}
         for k in aCollection:
+#ifdef PY3K
+            if not isinstance(k, str):
+#else
             if not isinstance(k, basestring):
+#endif
                 raise TypeError("Property list keys must be strings")
             convertedValue = pythonCollectionFromPropertyList(
                 aCollection[k], conversionHelper)
@@ -165,7 +190,11 @@ def pythonCollectionFromPropertyList(aCollection, conversionHelper=None):
             for item in aCollection
         ]
     elif isinstance(aCollection, NSData):
+#ifdef PY3K
+        return memoryview(aCollection)
+#else
         return buffer(aCollection)
+#endif
     elif isinstance(aCollection, NSDate):
         return datetime.datetime.fromtimestamp(
             aCollection.timeIntervalSince1970())
