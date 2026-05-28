@@ -4,6 +4,10 @@ add_compile_definitions(
 	PyObjC_STRICT_DEBUGGING
 )
 
+add_compile_options(
+	-Wno-error=incompatible-pointer-types
+)
+
 build_pybundle(pyobjc_core
 	OUTPUT_NAME "_objc"
 	PYTHON_VERSION "2.7"
